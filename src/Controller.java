@@ -25,7 +25,6 @@ public class Controller {
     public void loginButtonPressed(Event event) throws IOException {
 
         if (unameField.getText().equals("123") && pwordField.getText().equals("123")) {
-            System.out.println("cool");
 
             Parent mainParent = FXMLLoader.load(getClass().getResource("mainView.fxml"));
             Scene mainScene = new Scene(mainParent);
@@ -37,6 +36,10 @@ public class Controller {
             window.setX((primScreenBounds.getWidth() - window.getWidth()) / 2);
             window.setY((primScreenBounds.getHeight() - window.getHeight()) / 2);
 
+            // Database
+            Database database = new Database();
+            database.getConnection();
+
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Verification Error");
@@ -46,13 +49,7 @@ public class Controller {
         }
     }
 
-    public void usernameField(Event event){
 
-    }
-
-    public void pwordField(Event event){
-
-    }
 
 
 }
