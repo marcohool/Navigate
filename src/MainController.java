@@ -1,12 +1,17 @@
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -99,20 +104,21 @@ public class MainController implements Initializable {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     People rowData = row.getItem();
                     System.out.println(rowData.getName());
+
+                    Parent root;
+                    try {
+                        root = FXMLLoader.load(getClass().getClassLoader().getResource("personProfile.fxml"), resources);
+                        Stage stage = new Stage();
+                        stage.setTitle("My New Stage Title");
+                        stage.setScene(new Scene(root, 450, 450));
+                        stage.show();
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             return row ;
         });
-
     }
-
-//    public void rowMouseClick(Event event){
-//        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-//            Item rowData = row.getItem();
-//            System.out.println("Double click on: "+rowData.getName());
-//        }
-//    }
-
-
-
 }
