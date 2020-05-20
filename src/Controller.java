@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -27,10 +28,15 @@ public class Controller {
     @FXML
     private PasswordField pwordField;
 
+    public static String loggedInUser;
+
 
     public void loginButtonPressed(Event event) throws IOException {
 
-        if (unameField.getText().equals("123") && pwordField.getText().equals("123")) {
+        boolean validDetails = Database.checkDetails(unameField.getText(), pwordField.getText());
+        if (validDetails == true) {
+
+            loggedInUser = unameField.getText();
 
             Parent mainParent = FXMLLoader.load(getClass().getResource("mainView.fxml"));
             Scene mainScene = new Scene(mainParent);
@@ -50,7 +56,12 @@ public class Controller {
 
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Invalid username or password");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("Invalid username or password");
+            alert.initStyle(StageStyle.UTILITY);
+            alert.showAndWait();
         }
     }
 
