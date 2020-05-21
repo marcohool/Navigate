@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="databaseSystemScenebuilder:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/databaseSystemScenebuilder_jar</output-path>
+    <root id="archive" name="databaseSystemScenebuilder.jar">
+      <element id="module-output" name="databaseSystemScenebuilder" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/mysql-connector.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

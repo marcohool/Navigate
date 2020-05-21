@@ -63,7 +63,7 @@ public class Database {
                 list.add(new People(rs.getInt("personID"), rs.getString("name"), rs.getString("firmName"), rs.getString("practiseArea"),
                         rs.getString("speciality"), rs.getString("jobTitle"), rs.getString("ethnicity"), rs.getString("admissionDate"),
                         rs.getString("admissionJuristiction"), rs.getString("firmProfile"), rs.getString("linkedinProfile"), rs.getString("approached"),
-                        rs.getString("phoneNo"), rs.getString("email"), rs.getString("status")));
+                        rs.getString("phoneNo"), rs.getString("email")));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -74,7 +74,7 @@ public class Database {
     public static void addEntry(People person) {
         Database database = new Database();
         Connection conn = database.getConnection();
-        String sql = "INSERT INTO tbl_people (name,firmName,practiseArea,speciality,jobTitle,ethnicity,admissionDate,admissionJuristiction,firmProfile,linkedinProfile,approached,phoneNo,email,status)values(?,?,?,?,?,?,?,?,?,?,?,?,?,? )";
+        String sql = "INSERT INTO tbl_people (name,firmName,practiseArea,speciality,jobTitle,ethnicity,admissionDate,admissionJuristiction,firmProfile,linkedinProfile,approached,phoneNo,email)values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, person.getName());
@@ -90,7 +90,6 @@ public class Database {
             ps.setString(11, person.getApproached());
             ps.setString(12, person.getPhoneNo());
             ps.setString(13, person.getEmail());
-            ps.setString(14, person.getStatus());
             ps.execute();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -160,10 +159,9 @@ public class Database {
                 String approached = person.getApproached();
                 String phoneNo = person.getPhoneNo();
                 String email = person.getEmail();
-                String status = person.getStatus();
 
                 String sql = "UPDATE tbl_people SET name= '" + name + "',firmName= '" +
-                        firmName + "',practiseArea= '" + practiceArea + "',speciality= '" + speciality + "', jobTitle= '" + jobTitle + "', ethnicity= '" + ethnicity + "', admissionDate= '" + admissionDate + "', admissionJuristiction= '" + admissionJuristiction + "',firmProfile= '" + firmProfile + "',linkedinProfile= '" + linkedinProfile + "',approached= '" + approached + "',phoneNo='" + phoneNo + "',email='" + email + "', status='" + status + "'where personID='" + id + "' ";
+                        firmName + "',practiseArea= '" + practiceArea + "',speciality= '" + speciality + "', jobTitle= '" + jobTitle + "', ethnicity= '" + ethnicity + "', admissionDate= '" + admissionDate + "', admissionJuristiction= '" + admissionJuristiction + "',firmProfile= '" + firmProfile + "',linkedinProfile= '" + linkedinProfile + "',approached= '" + approached + "',phoneNo='" + phoneNo + "',email='" + email + "', status='" + id + "'";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.execute();
 

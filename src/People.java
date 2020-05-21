@@ -14,10 +14,9 @@ public class People {
     private String approached;
     private String phoneNo;
     private String email;
-    private String status;
 
 
-    public People(int personID, String name, String firmName, String practiseArea, String speciality, String jobTitle, String ethnicity, String admissionDate, String admissionJuristiction, String firmProfile, String linkedinProfile, String approached, String phoneNo, String email, String status) {
+    public People(int personID, String name, String firmName, String practiseArea, String speciality, String jobTitle, String ethnicity, String admissionDate, String admissionJuristiction, String firmProfile, String linkedinProfile, String approached, String phoneNo, String email) {
         this.personID = personID;
         this.name = name;
         this.firmName = firmName;
@@ -32,7 +31,6 @@ public class People {
         this.approached = approached;
         this.phoneNo = phoneNo;
         this.email = email;
-        this.status = status;
     }
 
     public int getPersonID() {
@@ -147,11 +145,4 @@ public class People {
         this.email = email;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -63,22 +64,10 @@ public class MainController implements Initializable {
     private TextField emailEntry;
 
     @FXML
-    private TextField statusEntry;
-
-    @FXML
-    private Button addEntryButton;
-
-    @FXML
-    private Button resetButton;
-
-    @FXML
     private TableView<People> tableView;
 
     @FXML
     private TextField searchBar;
-
-    @FXML
-    private TableColumn<People, Integer> idCol;
 
     @FXML
     private TableColumn<People, String> nameCol;
@@ -119,9 +108,6 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<People, String> emailCol;
 
-    @FXML
-    private TableColumn<People, String> statusCol;
-
 
     ObservableList<People> listM;
 
@@ -149,7 +135,6 @@ public class MainController implements Initializable {
         approchedCol.setCellValueFactory(new PropertyValueFactory<>("approached"));
         phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNo"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         contextMenu.getItems().add(miView);
         contextMenu.getItems().add(miRemove);
@@ -178,8 +163,6 @@ public class MainController implements Initializable {
                 } else if (People.getEmail() != null && People.getEmail().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 } else if (People.getAdmissionDate() != null && People.getAdmissionDate().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (People.getStatus() != null && People.getStatus().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 } else if (People.getPhoneNo() != null && People.getPhoneNo().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
@@ -218,7 +201,7 @@ public class MainController implements Initializable {
                         try {
                             buildProfile(rowData);
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            JOptionPane.showMessageDialog(null, e);
                         }
                     }
                 });
@@ -235,7 +218,7 @@ public class MainController implements Initializable {
                     try {
                         buildProfile(rowData);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e);
                     }
                 }
                 // Right click
@@ -254,7 +237,7 @@ public class MainController implements Initializable {
         if (emptyRecords.equals("")) {
             People newEntry = new People(0, nameEntry.getText(), firmNameEntry.getText(), practiceAreaEntry.getText(), specialityEntry.getText(), jobTitleEntry.getText(),
                     ethnicityEntry.getText(), admissionDateEntry.getText(), admissionJuristictionEntry.getText(), firmProfileEntry.getText(), linkedinProfileEntry.getText(), approachedEntry.getText(),
-                    phoneNoEntry.getText(), emailEntry.getText(), statusEntry.getText());
+                    phoneNoEntry.getText(), emailEntry.getText());
             Database.addEntry(newEntry);
             updateTable();
             resetEntryFields();
@@ -303,7 +286,7 @@ public class MainController implements Initializable {
         stage.setTitle(rowData.getName());
         stage.setScene(new Scene(root, 975, 600));
 
-        Image icon = new Image("file:assets/navigateIcon2.png");
+        Image icon = new Image("navigateIcon2.png");
         stage.getIcons().add(icon);
 
         stage.show();
@@ -334,7 +317,6 @@ public class MainController implements Initializable {
         approachedEntry.setText("");
         phoneNoEntry.setText("");
         emailEntry.setText("");
-        statusEntry.setText("");
     }
 
 

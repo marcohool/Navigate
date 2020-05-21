@@ -11,10 +11,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        primaryStage.setTitle("Navigate");
+        primaryStage.setTitle("Isaac Noah");
         primaryStage.setScene(new Scene(root, 500, 450));
 
-        Image icon = new Image("file:assets/navigateIcon2.png");
+        Image icon = new Image("navigateIcon2.png");
         primaryStage.getIcons().add(icon);
 
         primaryStage.show();

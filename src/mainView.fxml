@@ -38,7 +38,6 @@
             <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="19.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -66,13 +65,12 @@
             <TextField fx:id="approachedEntry" prefHeight="25.0" prefWidth="192.0" promptText="Approached" GridPane.columnIndex="2" GridPane.rowIndex="12" />
             <TextField fx:id="phoneNoEntry" prefHeight="25.0" prefWidth="192.0" promptText="Phone No" GridPane.columnIndex="2" GridPane.rowIndex="13" />
             <TextField fx:id="emailEntry" prefHeight="25.0" prefWidth="192.0" promptText="Email" GridPane.columnIndex="2" GridPane.rowIndex="14" />
-            <TextField fx:id="statusEntry" prefHeight="25.0" prefWidth="192.0" promptText="Status" GridPane.columnIndex="2" GridPane.rowIndex="15" />
-            <Button fx:id="addEntryButton" mnemonicParsing="false" onKeyPressed="#addEntryButtonPressed" onMouseClicked="#addEntryButtonPressed" text="Add Entry" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="16">
+            <Button fx:id="addEntryButton" mnemonicParsing="false" onKeyPressed="#addEntryButtonPressed" onMouseClicked="#addEntryButtonPressed" text="Add Entry" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="15">
                <font>
                   <Font name="Tahoma" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="resetButton" mnemonicParsing="false" onMouseClicked="#resetButtonClicked" prefHeight="29.0" prefWidth="85.0" text="Reset" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="16">
+            <Button fx:id="resetButton" mnemonicParsing="false" onMouseClicked="#resetButtonClicked" prefHeight="29.0" prefWidth="85.0" text="Reset" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
                <font>
                   <Font name="Tahoma" size="15.0" />
                </font>
@@ -97,7 +95,6 @@
             <TableColumn fx:id="approchedCol" prefWidth="200.0" text="Approached" />
             <TableColumn fx:id="phoneNoCol" prefWidth="200.0" text="Phone No" />
             <TableColumn fx:id="emailCol" prefWidth="200.0" text="Email" />
-            <TableColumn fx:id="statusCol" prefWidth="200.0" text="Status" />
         </columns>
       </TableView>
    </children>
