@@ -6,7 +6,10 @@ import javafx.stage.StageStyle;
 
 import javax.swing.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Observable;
 import java.util.Optional;
 
@@ -184,23 +187,22 @@ public class Database {
         }
     }
 
-    public static boolean checkDetails(String username, String password){
+    public static boolean checkDetails(String username, String password) {
 
 
         Database database = new Database();
         Connection conn = database.getConnection();
 
 
-
         try {
-            String sql = "SELECT * FROM tbl_users WHERE username = '"+username+"' AND password = '"+password+"'";
+            String sql = "SELECT * FROM tbl_users WHERE username = '" + username + "' AND password = '" + password + "'";
             Statement stmt = conn.createStatement();
             PreparedStatement ps = null;
             ResultSet rs = stmt.executeQuery(sql);
-            if (rs.next()){
+            if (rs.next()) {
                 return true;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
@@ -208,13 +210,86 @@ public class Database {
 
     }
 
-    public static ArrayList<String[]> getComments(int personID){
+    public static void addComment(People person, String text){
 
-        // index 0 = userID
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+        java.util.Date date = new Date();
+
+        String textToAdd = Controller.loggedInUser + " @ " + formatter.format(date) + ": " + text;
+
+        Database database = new Database();
+        Connection conn = database.getConnection();
+        String sql = "INSERT INTO tbl_comments (text,username) values(?,?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, textToAdd);
+            ps.setString(2, Controller.loggedInUser);
+            ps.execute();
+
+            sql = "SELECT * FROM tbl_comments";
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.last();
+            int commentID = rs.getInt("commentID");
+
+            int personID = person.getPersonID();
+            sql = "INSERT INTO tbl_commentsPage (personID,commentID) values(?,?)";
+            PreparedStatement ps2 = conn.prepareStatement(sql);
+            ps2.setInt(1, personID);
+            ps2.setInt(2, commentID);
+            ps2.execute();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText("Comment added");
+            alert.initStyle(StageStyle.UTILITY);
+            alert.showAndWait();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+
+
+    }
+
+    public static List<Comment> getComments(int personID) {
+
+        // index 0 = username
         // index 1 = comment text
-        ArrayList<String[]> comments;
+        List<Comment> comments = new ArrayList<Comment>();
 
-        return null;
+        Database database = new Database();
+        Connection conn = database.getConnection();
+
+        String sql = "SELECT commentID FROM tbl_commentsPage WHERE personID = '" + personID + "'";
+        try {
+
+            Statement st1 = conn.createStatement();
+            ResultSet rs1 = st1.executeQuery(sql);
+
+
+            while (rs1.next()) {
+                int commentID = rs1.getInt("commentID");
+                sql = "SELECT username, text FROM tbl_comments WHERE commentID ='" + commentID + "'";
+
+                Statement st2 = conn.createStatement();
+                ResultSet rs2 = st2.executeQuery(sql);
+
+                while (rs2.next()) {
+                    rs2.getString("username");
+                    comments.add(new Comment(commentID, rs2.getString("username"), rs2.getString("text")));
+                    //comments.add(new String[]{rs2.getString("username"), rs2.getString("text")});
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("ok" + e);
+        }
+
+        return comments;
     }
 
 

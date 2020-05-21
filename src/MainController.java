@@ -136,6 +136,21 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        firmCol.setCellValueFactory(new PropertyValueFactory<>("firmName"));
+        practiseAreaCol.setCellValueFactory(new PropertyValueFactory<>("practiseArea"));
+        specialityCol.setCellValueFactory(new PropertyValueFactory<>("speciality"));
+        jobTitleCol.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
+        ethnicityCol.setCellValueFactory(new PropertyValueFactory<>("ethnicity"));
+        admissionDateCol.setCellValueFactory(new PropertyValueFactory<>("admissionDate"));
+        admissionJuristictionCol.setCellValueFactory(new PropertyValueFactory<>("admissionJuristiction"));
+        firmProfileCol.setCellValueFactory(new PropertyValueFactory<>("firmProfile"));
+        linkedinCol.setCellValueFactory(new PropertyValueFactory<>("linkedinProfile"));
+        approchedCol.setCellValueFactory(new PropertyValueFactory<>("approached"));
+        phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNo"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
         contextMenu.getItems().add(miView);
         contextMenu.getItems().add(miRemove);
 
@@ -267,20 +282,7 @@ public class MainController implements Initializable {
 
     public void updateTable() {
 
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        firmCol.setCellValueFactory(new PropertyValueFactory<>("firmName"));
-        practiseAreaCol.setCellValueFactory(new PropertyValueFactory<>("practiseArea"));
-        specialityCol.setCellValueFactory(new PropertyValueFactory<>("speciality"));
-        jobTitleCol.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
-        ethnicityCol.setCellValueFactory(new PropertyValueFactory<>("ethnicity"));
-        admissionDateCol.setCellValueFactory(new PropertyValueFactory<>("admissionDate"));
-        admissionJuristictionCol.setCellValueFactory(new PropertyValueFactory<>("admissionJuristiction"));
-        firmProfileCol.setCellValueFactory(new PropertyValueFactory<>("firmProfile"));
-        linkedinCol.setCellValueFactory(new PropertyValueFactory<>("linkedinProfile"));
-        approchedCol.setCellValueFactory(new PropertyValueFactory<>("approached"));
-        phoneNoCol.setCellValueFactory(new PropertyValueFactory<>("phoneNo"));
-        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
 
         listM = Database.getPeople();
 
@@ -295,11 +297,11 @@ public class MainController implements Initializable {
         Parent root = loader.load();
         profileController profileController = loader.getController();
         profileController.changeLabels(rowData);
-        profileController.showComments(rowData);
+        profileController.showComments();
 
         Stage stage = new Stage();
         stage.setTitle(rowData.getName());
-        stage.setScene(new Scene(root, 900, 600));
+        stage.setScene(new Scene(root, 975, 600));
 
         Image icon = new Image("file:assets/navigateIcon2.png");
         stage.getIcons().add(icon);
@@ -308,7 +310,6 @@ public class MainController implements Initializable {
 
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
-                System.out.println("lol");
                 updateTable();
             }
         });
