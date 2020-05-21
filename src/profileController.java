@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class profileController {
+public class profileController implements Initializable{
 
 
     @FXML
@@ -233,28 +234,7 @@ public class profileController {
             commentListView.getItems().add(comments.get(i).getText());
         }
 
-        commentListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-            @Override
-            public ListCell<String> call(ListView<String> param) {
-                return new ListCell<String>() {
-                    {
-                        prefWidthProperty().bind(commentListView.widthProperty().subtract(20)); // 1
-                        setMaxWidth(Control.USE_PREF_SIZE); //2
-                    }
 
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        if (item != null && !empty) {
-                            this.setWrapText(true); // 3
-                            setText(item);
-                        } else {
-                            setText(null);
-                        }
-                    }
-
-                };
-            }
-        });
         commentField.setText("");
 
         commentListView.setCellFactory(lv -> {
@@ -262,18 +242,40 @@ public class profileController {
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
+                    setMinWidth(lv.getWidth());
+                    setMaxWidth(lv.getWidth());
+                    setPrefWidth(lv.getWidth());
+
+                    // allow wrapping
+                    setWrapText(true);
                     setText(item);
+
                 }
             };
             cell.setOnMouseClicked(e -> {
-                if (!cell.isEmpty()) {
-                    System.out.println("You clicked on " + cell.getText());
-                    e.consume();
+                if (e.getButton() == MouseButton.SECONDARY) {
+                    if (!cell.isEmpty()) {
+                        contextMenu.show(commentListView, e.getScreenX(), e.getScreenY());
+                        e.consume();
+                    }
+                } else{
+                    contextMenu.hide();
                 }
+
+                miDelete.setOnAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent t) {
+                        Database.removeComment(comments.get((comments.size() - 1) - cell.getIndex()).getId());
+                        showComments();
+                    }
+                });
             });
             return cell;
         });
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        contextMenu.getItems().add(miDelete);
+    }
 }

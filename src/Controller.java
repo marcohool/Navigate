@@ -33,10 +33,10 @@ public class Controller {
 
     public void loginButtonPressed(Event event) throws IOException {
 
-        boolean validDetails = Database.checkDetails(unameField.getText(), pwordField.getText());
-        if (validDetails == true) {
+        String name = Database.checkDetails(unameField.getText(), pwordField.getText());
+        if (name != null) {
 
-            loggedInUser = unameField.getText();
+            loggedInUser = name;
 
             Parent mainParent = FXMLLoader.load(getClass().getResource("mainView.fxml"));
             Scene mainScene = new Scene(mainParent);

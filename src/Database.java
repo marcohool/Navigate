@@ -187,7 +187,7 @@ public class Database {
         }
     }
 
-    public static boolean checkDetails(String username, String password) {
+    public static String checkDetails(String username, String password) {
 
 
         Database database = new Database();
@@ -200,13 +200,13 @@ public class Database {
             PreparedStatement ps = null;
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
-                return true;
+                return rs.getString("name");
             }
         } catch (Exception e) {
             System.out.println(e);
         }
 
-        return false;
+        return null;
 
     }
 
@@ -290,6 +290,38 @@ public class Database {
         }
 
         return comments;
+    }
+
+    public static void removeComment(int commentID){
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete this comment?");
+        alert.initStyle(StageStyle.UTILITY);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Database database = new Database();
+            Connection conn = database.getConnection();
+            String sql = "DELETE from tbl_comments where commentID = ?";
+            try {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, commentID);
+                ps.execute();
+
+                sql = "DELETE from tbl_commentsPage where commentID = ?";
+                PreparedStatement ps2 = conn.prepareStatement(sql);
+                ps2 = conn.prepareStatement(sql);
+                ps2.setInt(1, commentID);
+                ps2.execute();
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
     }
 
 
