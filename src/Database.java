@@ -85,7 +85,7 @@ public class Database {
             ps.setString(6, person.getEthnicity());
             ps.setString(7, person.getAdmissionDate());
             ps.setString(8, person.getAdmissionJuristiction());
-            ps.setString(9, person.getFirmName());
+            ps.setString(9, person.getFirmProfile());
             ps.setString(10, person.getLinkedinProfile());
             ps.setString(11, person.getApproached());
             ps.setString(12, person.getPhoneNo());
@@ -161,7 +161,7 @@ public class Database {
                 String email = person.getEmail();
 
                 String sql = "UPDATE tbl_people SET name= '" + name + "',firmName= '" +
-                        firmName + "',practiseArea= '" + practiceArea + "',speciality= '" + speciality + "', jobTitle= '" + jobTitle + "', ethnicity= '" + ethnicity + "', admissionDate= '" + admissionDate + "', admissionJuristiction= '" + admissionJuristiction + "',firmProfile= '" + firmProfile + "',linkedinProfile= '" + linkedinProfile + "',approached= '" + approached + "',phoneNo='" + phoneNo + "',email='" + email + "', status='" + id + "'";
+                        firmName + "',practiseArea= '" + practiceArea + "',speciality= '" + speciality + "', jobTitle= '" + jobTitle + "', ethnicity= '" + ethnicity + "', admissionDate= '" + admissionDate + "', admissionJuristiction= '" + admissionJuristiction + "',firmProfile= '" + firmProfile + "',linkedinProfile= '" + linkedinProfile + "',approached= '" + approached + "',phoneNo='" + phoneNo + "',email='" + email + "'WHERE personID = '" + id + "'";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.execute();
 
@@ -174,6 +174,7 @@ public class Database {
 
 
             } catch (Exception e) {
+                System.out.println(e);
                 Alert error = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("An error has occured");

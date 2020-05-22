@@ -240,7 +240,7 @@ public class MainController implements Initializable {
                     phoneNoEntry.getText(), emailEntry.getText());
             Database.addEntry(newEntry);
             updateTable();
-            resetEntryFields();
+            //resetEntryFields();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
