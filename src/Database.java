@@ -35,7 +35,7 @@ public class Database {
         }
 
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://sql2.freemysqlhosting.net:3306/sql2341471" , "sql2341471" , "hI2%xW7*");
+            conn = DriverManager.getConnection("j" , "" , "");
             connectionEstablished = true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Connection to the database could not be established");
